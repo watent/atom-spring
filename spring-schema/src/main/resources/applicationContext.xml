@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:myns="http://code.watent.com/schema/myns"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.watent.com/schema/myns
+        http://code.watent.com/schema/myns.xsd"
+       default-lazy-init="true">
+
+    <!-- as a top-level bean -->
+    <myns:dateformat id="defaultDateFormat" pattern="yyyy-MM-dd HH:mm" lenient="true"/>
+
+    <!--<bean id="jobDetailTemplate" abstract="true">-->
+        <!--<property name="dateFormat">-->
+            <!--&lt;!&ndash; as an inner bean &ndash;&gt;-->
+            <!--<myns:dateformat pattern="HH:mm MM-dd-yyyy"/>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--<myns:dateformat id="dateFormat"-->
+                     <!--pattern="yyyy-MM-dd HH:mm"-->
+                     <!--lenient="true"/>-->
+
+    <myns:mongo id="mongo1" ip="127.0.0.1" port="3300"/>
+
+</beans>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+
+    <!--<import resource="classpath:META-INF/spring/projectName-domain.xml" />-->
+
+    <bean class="com.watent.source.processor.Processor1"/>
+    <bean class="com.watent.source.processor.Processor2"/>
+    <bean class="com.watent.source.processor.Processor3"/>
+    <bean class="com.watent.source.processor.Processor4"/>
+    <bean class="com.watent.source.processor.Processor5"/>
+    <bean class="com.watent.source.processor.Processor6"/>
+
+    <bean id="student" class="com.watent.source.processor.Student">
+        <property name="username" value="hello"/>
+        <property name="password" value="123456"/>
+    </bean>
+
+</beans>

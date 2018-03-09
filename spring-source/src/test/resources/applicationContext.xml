@@ -11,6 +11,7 @@
 
     <!--<import resource="classpath:META-INF/spring/projectName-domain.xml" />-->
 
+    <!--Processor start-->
     <bean class="com.watent.source.processor.Processor1"/>
     <bean class="com.watent.source.processor.Processor2"/>
     <bean class="com.watent.source.processor.Processor3"/>
@@ -22,5 +23,11 @@
         <property name="username" value="hello"/>
         <property name="password" value="123456"/>
     </bean>
+    <!--Processor end-->
+
+    <!-- listen start -->
+    <bean class="com.watent.source.listen.AppListen1"/>
+    <bean class="com.watent.source.listen.AppListen2"/>
+    <!-- listen end -->
 
 </beans>

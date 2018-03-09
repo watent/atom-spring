@@ -1,6 +1,5 @@
-package com.watent.source;
+package com.watent.source.processor;
 
-import com.watent.source.processor.Student;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.BeansException;
@@ -10,9 +9,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
+ * 不同接口的优先级顺序
+ * PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors()
+ *
  * @author Dylan
  * @date 2018/3/7 22:12
- **/
+ * @see org.springframework.context.support.PostProcessorRegistrationDelegate
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
 public class ProcessorTest implements ApplicationContextAware {

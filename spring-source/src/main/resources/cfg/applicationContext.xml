@@ -22,7 +22,8 @@
     <bean id="aopAspectjBean" class="com.watent.source.aop.AopAspectjMock"/>
     <bean id="introductionIntBean" class="com.watent.source.aop.IntroductionIntImpl"/>
 
-    <aop:config proxy-target-class="true">
+    <!-- 使用类代理即CGLIB proxy-target-class="true" -->
+    <aop:config>
         <!-- <aop:pointcut >在此处定义的pointcut是全局的pointcut可以供所有的aspect使用
              id:表示这个pointcut的名称，以方便使用-->
         <aop:pointcut id="pointcutMethods" expression="execution(public * com.watent.source.service..*.*(..))"/>
@@ -52,6 +53,6 @@
         </aop:aspect>
         <!--<aop:advisor advice-ref="" pointcut-ref=""/>-->
     </aop:config>
-    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <!--<aop:aspectj-autoproxy proxy-target-class="true"/>-->
 
 </beans>

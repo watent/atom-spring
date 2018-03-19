@@ -2,14 +2,56 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
-
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util
+		http://www.springframework.org/schema/util/spring-util-3.1.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.1.xsd
+        http://www.springframework.org/schema/aop
+	    http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
 
     <!--<import resource="classpath:META-INF/spring/projectName-domain.xml" />-->
 
+    <bean id="helloServiceBean" class="com.watent.source.service.HelloServiceImpl"/>
+    <bean id="aopAspectjBean" class="com.watent.source.aop.AopAspectjMock"/>
+    <bean id="introductionIntBean" class="com.watent.source.aop.IntroductionIntImpl"/>
+
+    <aop:config proxy-target-class="true">
+        <!-- <aop:pointcut >在此处定义的pointcut是全局的pointcut可以供所有的aspect使用
+             id:表示这个pointcut的名称，以方便使用-->
+        <aop:pointcut id="pointcutMethods" expression="execution(public * com.watent.source.service..*.*(..))"/>
+        <!--  <aop:aspect>表示定义一个切面类(这需要Spring初始化加入其管理)
+                id:切面类的名称，
+               ref:引用哪个bean(需要使用<bean>标签初始化)-->
+        <aop:aspect id="txAspect" ref="aopAspectjBean">
+
+            <aop:declare-parents types-matching="com.watent.source.service.HelloServiceImpl"
+                                 implement-interface="com.watent.source.aop.IntroductionInt"
+                                 delegate-ref="introductionIntBean"/>
+            <!-- 在此处定义的pointcut是全局的pointcut只供当前的aspect使用
+                 id:表示这个pointcut的名称，以方便使用 -->
+            <aop:pointcut id="pointcutSingleMethod"
+                          expression="execution(public * com.watent.source.service..*.*(..))"/>
+            <!--
+                定义advice时的参数
+                method:切面逻辑的方法名称(切面类中的方法名)
+                pointcut-ref：表示引用哪个pointcut(要求已经在上面定义好了)
+                pointcut：定义一个pointcut -->
+            <!--<aop:before method="before" pointcut-ref="myMethods"/>
+                <aop:after-returning method="afterReturning" pointcut="execution(public * com.dongnao.jack.service..*.*(..))"/>
+                <aop:after method="after" pointcut-ref="myMethod2"/>
+                <aop:after-throwing method="afterthrowing" pointcut-ref="myMethods"/>
+                <aop:around method="around" pointcut-ref="myMethod2"/>-->
+            <aop:before method="before" pointcut-ref="pointcutMethods"/>
+        </aop:aspect>
+        <!--<aop:advisor advice-ref="" pointcut-ref=""/>-->
+    </aop:config>
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
 
 </beans>

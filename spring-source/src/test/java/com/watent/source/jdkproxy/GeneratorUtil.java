@@ -1,4 +1,4 @@
-package com.watent.source.cglib;
+package com.watent.source.jdkproxy;
 
 import org.junit.Test;
 import sun.misc.ProxyGenerator;
@@ -17,7 +17,7 @@ public class GeneratorUtil {
 
     @Test
     public void generate() {
-        byte[] data = ProxyGenerator.generateProxyClass("$Proxy0", new Class[]{Hello.class});
+        byte[] data = ProxyGenerator.generateProxyClass("$Proxy0", new Class[]{Subject.class});
 
         FileOutputStream fos = null;
         try {

@@ -1,5 +1,6 @@
 package com.watent.source.cglib;
 
+import org.springframework.cglib.core.DebuggingClassWriter;
 import org.springframework.cglib.proxy.Enhancer;
 
 /**
@@ -11,6 +12,10 @@ import org.springframework.cglib.proxy.Enhancer;
 public class Test {
 
     public static void main(String[] args) {
+
+//        设置类输出路径
+//        被代理class name + "$$" + 使用cglib处理的class name + "ByCGLIB" + "$$" + key的hashcode
+        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "/Users/ytx/ws-sys/atom-spring/spring-source/target");
 
         Enhancer enhancer = new Enhancer();
 

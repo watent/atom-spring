@@ -55,4 +55,56 @@
     </aop:config>
     <!--<aop:aspectj-autoproxy proxy-target-class="true"/>-->
 
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass">
+            <value>org.gjt.mm.mysql.Driver</value>
+        </property>
+        <property name="jdbcUrl">
+            <value>jdbc:mysql://localhost:3306/consult</value>
+        </property>
+        <property name="user">
+            <value>myConsult</value>
+        </property>
+        <property name="password">
+            <value>123456</value>
+        </property>
+        <property name="minPoolSize" value="10"/>
+        <property name="maxPoolSize" value="100"/>
+        <property name="maxIdleTime" value="1800"/>
+        <property name="acquireIncrement" value="3"/>
+        <property name="maxStatements" value="1000"/>
+        <property name="initialPoolSize" value="10"/>
+        <property name="idleConnectionTestPeriod" value="60"/>
+        <property name="acquireRetryAttempts" value="30"/>
+        <property name="breakAfterAcquireFailure" value="false"/>
+        <property name="testConnectionOnCheckout" value="false"/>
+        <property name="acquireRetryDelay">
+            <value>100</value>
+        </property>
+    </bean>
+
+    <!-- 注解事物 -->
+    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <tx:advice id="userTxAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="save*" propagation="REQUIRED" read-only="false"
+                       rollback-for="java.lang.RuntimeException"/>
+            <tx:method name="delete*" propagation="REQUIRED" read-only="false"
+                       rollback-for="java.lang.RuntimeException"/>
+            <tx:method name="update*" propagation="REQUIRED" read-only="false"
+                       rollback-for="java.lang.RuntimeException"/>
+            <tx:method name="check*" propagation="REQUIRED" read-only="false"
+                       rollback-for="java.lang.RuntimeException"/>
+            <tx:method name="print*" propagation="REQUIRED" read-only="false"
+                       rollback-for="java.lang.RuntimeException"/>
+            <tx:method name="*" propagation="REQUIRED" read-only="false" isolation="READ_COMMITTED"
+                       rollback-for="java.lang.RuntimeException"/>
+        </tx:attributes>
+    </tx:advice>
+
 </beans>
